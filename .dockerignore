@@ -1,0 +1,10 @@
+node_modules
+.husky
+.git
+Dockerfile
+.eslintignore
+.eslintrc.js
+.gitignore
+.prettierignore
+.prettierrc
+README.md

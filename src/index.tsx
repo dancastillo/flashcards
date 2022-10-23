@@ -9,7 +9,7 @@ import reportWebVitals from './reportWebVitals';
 const cache = cacheExchange({});
 
 const client = new Client({
-  url: 'http://localhost:4000/graphql',
+  url: process.env.API_URL || 'http://localhost:4000/graphql',
   exchanges: [dedupExchange, cache, fetchExchange],
 });
 
