@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  db:
+    image: "mongo"
+    ports:
+      - "27017:27017"
+    volumes:
+      - data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+  api:
+    build: ./api
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=dev
+      - MONGODB_URI=mongodb://db:27017/graphql-blog
+    depends_on:
+      - db
+
+  app:
+    build: ./app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app/src:/app/src
+    stdin_open: true
+    tty: true
+    depends_on:
+      - api
+
+volumes:
+  data:
