@@ -1,0 +1,31 @@
+query flashcards {
+  flashcards {
+    _id
+    question
+    answer
+    category
+  }
+}
+
+query categories {
+  categories {
+    _id
+    category
+  }
+}
+
+mutation createNotification($message: String!) {
+  createNotification(message: $message)
+}
+
+mutation addFlashcard($question: String!, $answer: String!, $category: String) {
+  addFlashcard(question: $question, answer: $answer, category: $category)
+}
+
+mutation addCategory($category: String!) {
+  addCategory(category: $category)
+}
+
+subscription newNotification {
+  newNotification
+}
