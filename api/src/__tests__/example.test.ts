@@ -1,14 +1,14 @@
 import { createMercuriusTestClient } from 'mercurius-integration-testing'
 import tap from 'tap'
 
-import { app } from '../src/app'
+import { app } from '../app'
 import {
   addDocument,
   createNotificationDocument,
   dogsDocument,
   helloDocument,
   newNotificationDocument,
-} from '../src/graphql/generated'
+} from '../graphql/generated'
 
 const client = createMercuriusTestClient(app)
 

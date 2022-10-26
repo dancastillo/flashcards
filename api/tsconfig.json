@@ -9,11 +9,11 @@
     "noImplicitAny": false,
     "skipLibCheck": true
   },
+  "include": ["src"],
   "exclude": [
     "dist",
-    "node_modules",
-    "test",
+    "__tests___modules",
+    // "test",
     ".eslintrc.cjs",
-    ".prettierrc.js",
   ]
 }
