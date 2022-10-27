@@ -25,7 +25,7 @@ declare module 'mercurius' {
 
 app.register(cors)
 
-await app.register(db)
+app.register(db)
 
 app.register(mercurius, {
   schema,
