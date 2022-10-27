@@ -13,7 +13,7 @@
   "exclude": [
     "dist",
     "__tests___modules",
-    // "test",
+    "coverage",
     ".eslintrc.cjs",
   ]
 }

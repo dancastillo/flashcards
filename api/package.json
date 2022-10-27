@@ -21,7 +21,7 @@
     "dev": "nodemon -x \"node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm src/listen.ts\"",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "NODE_ENV=test tap --ts --node-arg=--require=tsm"
+    "test": "env NODE_ENV=test jest test --detectOpenHandles"
   },
   "type": "module",
   "dependencies": {
@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@graphql-typed-document-node/core": "^3.1.1",
+    "@types/jest": "^29.2.0",
     "@types/node": "^18.6.1",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "esbuild": "^0.15.11",
@@ -49,9 +50,11 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
+    "jest": "^29.2.2",
     "mercurius-integration-testing": "^5.0.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.7.1",
+    "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
     "typescript": "*"
   }
