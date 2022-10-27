@@ -4,3 +4,5 @@ node_modules
 src/graphql/generated/index.ts
 .eslintrc.cjs
 coverage
+jest.config.ts
+scripts

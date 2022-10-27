@@ -1,7 +1,7 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model } from 'mongoose';
 
 export interface ICategory {
-  category: string
+  category: string;
 }
 
 const categorySchema = new Schema<ICategory>({
@@ -9,8 +9,8 @@ const categorySchema = new Schema<ICategory>({
     type: String,
     require: true,
   },
-})
+});
 
-const Category = model<ICategory>('Category', categorySchema)
+const Category = model<ICategory>('Category', categorySchema);
 
-export default Category
+export default Category;

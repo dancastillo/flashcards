@@ -1,17 +1,17 @@
-import { IResolvers } from 'mercurius'
-import Category, { ICategory } from '../models/category'
-import Flashcard, { IFlashcard } from '../models/flashcard'
+import { IResolvers } from 'mercurius';
+import Category, { ICategory } from '../models/category';
+import Flashcard, { IFlashcard } from '../models/flashcard';
 
-const NOTIFICATION = 'notification'
+const NOTIFICATION = 'notification';
 
 const resolvers: IResolvers = {
   Query: {
-    async flashcards (_, obj): Promise<IFlashcard[]> {
-      const flashcards = await Flashcard.find()
-      return flashcards
+    async flashcards(_, obj): Promise<IFlashcard[]> {
+      const flashcards = await Flashcard.find();
+      return flashcards;
     },
 
-    async categories (_, obj): Promise<ICategory[]> {
+    async categories(_, obj): Promise<ICategory[]> {
       const categories = await Category.find();
       return categories;
     },
@@ -23,8 +23,8 @@ const resolvers: IResolvers = {
         payload: {
           newNotification: message,
         },
-      })
-      return true
+      });
+      return true;
     },
     async addFlashcard(_, { question, answer, category }, ctx, info) {
       try {
@@ -32,13 +32,13 @@ const resolvers: IResolvers = {
           question,
           answer,
           category,
-        })
-  
-        await flashcard.save()
-        return 'ok'
+        });
+
+        await flashcard.save();
+        return 'ok';
       } catch (err) {
-        console.error(err)
-        throw err
+        console.error(err);
+        throw err;
       }
     },
 
@@ -46,23 +46,23 @@ const resolvers: IResolvers = {
       try {
         const categoryObj = new Category({
           category,
-        })
-  
-        await categoryObj.save()
-        return 'ok'
+        });
+
+        await categoryObj.save();
+        return 'ok';
       } catch (err) {
-        console.error(err)
-        throw err
+        console.error(err);
+        throw err;
       }
     },
   },
   Subscription: {
     newNotification: {
       subscribe: (_root, _args, { pubsub }) => {
-        return pubsub.subscribe(NOTIFICATION)
+        return pubsub.subscribe(NOTIFICATION);
       },
     },
   },
-}
+};
 
-export default resolvers
+export default resolvers;

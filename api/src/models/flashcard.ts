@@ -1,9 +1,9 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model } from 'mongoose';
 
 export interface IFlashcard {
-  question: string
-  answer: string
-  category?: string
+  question: string;
+  answer: string;
+  category?: string;
 }
 
 const flashcardSchema = new Schema<IFlashcard>({
@@ -18,8 +18,8 @@ const flashcardSchema = new Schema<IFlashcard>({
   category: {
     type: String,
   },
-})
+});
 
-const Flashcard = model<IFlashcard>('Flashcard', flashcardSchema)
+const Flashcard = model<IFlashcard>('Flashcard', flashcardSchema);
 
-export default Flashcard
+export default Flashcard;
