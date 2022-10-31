@@ -30,12 +30,23 @@ const saveData = async (collection, fileName: string) => {
 const exportData = async () => {
   await client.connect();
   const db = client.db(dbName);
+  
 
   const flashcardsCollection = db.collection('flashcards');
   const categoriesCollection = db.collection('categories');
+  const subcategoriesCollection = db.collection('subcategories');
 
-  await saveData(flashcardsCollection, 'flashcards');
-  await saveData(categoriesCollection, 'categories');
+  const collectionIterator = {
+    async *[Symbol.asyncIterator]() {
+      yield saveData(flashcardsCollection, 'flashcards');
+      yield saveData(categoriesCollection, 'categories');
+      yield saveData(subcategoriesCollection, 'subcategories');
+    }
+  }
+
+  for await (const collection of collectionIterator) {
+    collection;
+  }
 
   client.close();
 };

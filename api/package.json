@@ -19,7 +19,7 @@
     "build": "tsc",
     "start": "node --es-module-specifier-resolution=node ./dist/listen.js",
     "dev": "nodemon -x \"node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm src/listen.ts\"",
-    "db:start": "docker run --name mongodb-container --rm -v data:/data/db -p 27017:27017 mongo",
+    "db:start": "docker run -d --name mongodb-container --rm -v data:/data/db -p 27017:27017 mongo",
     "data:export": "node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm scripts/exportData.ts",
     "data:import": "node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm scripts/importData.ts",
     "lint": "eslint .",

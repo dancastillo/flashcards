@@ -28,9 +28,19 @@ const exportData = async () => {
 
   const flashcardsCollection = db.collection('flashcards');
   const categoriesCollection = db.collection('categories');
+  const subcategoriesCollection = db.collection('subcategories');
 
-  await writeData(flashcardsCollection, 'flashcards');
-  await writeData(categoriesCollection, 'categories');
+  const collectionIterator = {
+    async *[Symbol.asyncIterator]() {
+      yield writeData(flashcardsCollection, 'flashcards');
+      yield writeData(categoriesCollection, 'categories');
+      yield writeData(subcategoriesCollection, 'subcategories');
+    }
+  }
+
+  for await (const collection of collectionIterator) {
+    collection;
+  }
 
   console.log('Closing connection.');
   client.close();
