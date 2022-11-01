@@ -32,8 +32,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "prettier:check": "prettier --config .prettierrc --check \"src/**/*.{ts,tsx,css,html,js,jsx}\"",
-    "prettier:write": "prettier --config .prettierrc --write \"src/**/*.{ts,tsx,css,html,js,jsx}\"",
-    "prepare": "husky install"
+    "prettier:write": "prettier --config .prettierrc --write \"src/**/*.{ts,tsx,css,html,js,jsx}\""
   },
   "eslintConfig": {
     "extends": [
@@ -71,7 +70,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.31.10",
-    "husky": "^8.0.0",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1"
   }
