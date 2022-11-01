@@ -4,10 +4,13 @@ import Flashcard from './Flashcard';
 
 export default function FlashcardList({ flashcards }: { flashcards: IFlashcard[] }) {
   return (
-    <div className="card-grid">
-      {flashcards.map((flashcard) => (
-        <Flashcard key={flashcard._id} flashcard={flashcard} />
-      ))}
-    </div>
+    <>
+      {flashcards?.length === 0 && <h1>No flashcards found. Lets add some flashcards....</h1>}
+      <div className="card-grid">
+        {flashcards.map((flashcard) => (
+          <Flashcard key={flashcard.id} flashcard={flashcard} />
+        ))}
+      </div>
+    </>
   );
 }

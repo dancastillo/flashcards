@@ -1,5 +1,5 @@
 export interface IFlashcard {
-  _id: string;
+  id: string;
   question: string;
   answer: string;
   category?: string;
@@ -7,7 +7,7 @@ export interface IFlashcard {
 }
 
 export interface ICategory {
-  _id: string;
+  id: string;
   category: string;
 }
 

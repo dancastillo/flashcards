@@ -13,10 +13,15 @@ export default function AddFlashcard() {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
   const [category, setCategory] = useState('');
+  const [subcategory, setSubcategory] = useState('');
   // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unused-vars
   const [_, addFlashcard] = useMutation(AddFlashcardMutation);
 
-  const [{ data, fetching, error }] = useQuery({
+  const [categoryQuery] = useQuery({
+    query: CategoriesQuery,
+  });
+
+  const [subcategoryQuery] = useQuery({
     query: CategoriesQuery,
   });
 
@@ -28,36 +33,51 @@ export default function AddFlashcard() {
       return handleError('Please enter question and answer!', setRequestError);
     }
 
-    const result = await addFlashcard({ question, answer, category });
+    const result = await addFlashcard({ question, answer, category, subcategory });
 
     if (result.error) {
       handleError(result.error, setRequestError);
     }
-
     return handleSuccess(setSuccess, 'flashcard');
   }
 
-  if (fetching) return <p>Loading....</p>;
-  if (error) {
+  if (categoryQuery.fetching || subcategoryQuery.fetching) return <p>Loading....</p>;
+  if (categoryQuery.error) {
     return (
       <p>
         Oh no...
-        {error.message}
+        {categoryQuery.error.message}
       </p>
     );
   }
 
-  let options: IOptions[] = [];
-  if (data) {
-    options = data.categories.map((dataCategory: ICategory) => ({
-      id: dataCategory._id,
+  if (subcategoryQuery.error) {
+    return (
+      <p>
+        Oh no...
+        {subcategoryQuery.error.message}
+      </p>
+    );
+  }
+
+  let categoryOptions: IOptions[] = [];
+  if (categoryQuery.data) {
+    categoryOptions = categoryQuery.data.categories.map((dataCategory: ICategory) => ({
+      id: dataCategory.id,
       value: dataCategory.category,
+    }));
+  }
+
+  let subcategoryOptions: IOptions[] = [];
+  if (subcategoryQuery.data) {
+    subcategoryOptions = subcategoryQuery.data.categories.map((dataSubcategory: ICategory) => ({
+      id: dataSubcategory.id,
+      value: dataSubcategory.category,
     }));
   }
   return (
     <form onSubmit={handleSubmit}>
       {success && <div className="form-success">{success}</div>}
-      {error && <div className="form-error">{error}</div>}
       {requestError && <div className="form-error">{requestError}</div>}
       <Input label="question" labelText="Question:" inputType="string" inputId="question" setState={setQuestion} />
       <Input label="answer" labelText="Answer:" inputType="string" inputId="answer" setState={setAnswer} />
@@ -66,7 +86,14 @@ export default function AddFlashcard() {
         labelText="Select a category:"
         selectId="categories"
         setState={setCategory}
-        options={options}
+        options={categoryOptions}
+      />
+      <Select
+        label="question"
+        labelText="Select a category:"
+        selectId="categories"
+        setState={setSubcategory}
+        options={subcategoryOptions}
       />
       <SubmitBtn />
     </form>

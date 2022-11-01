@@ -1,7 +1,7 @@
 export const FlashcardsQuery = `
 query {
   flashcards {
-    _id
+    id
     question
     answer
     category
@@ -12,8 +12,17 @@ query {
 export const CategoriesQuery = `
 query {
   categories {
-    _id
+    id
     category
+  }
+}
+`;
+
+export const SubcategoriesQuery = `
+query {
+  subcategories {
+    id
+    subcategory
   }
 }
 `;
@@ -27,5 +36,11 @@ mutation ($question: String!, $answer: String!, $category: String) {
 export const AddCategory = `
 mutation ($category: String!) {
   addCategory(category: $category)
+}
+`;
+
+export const AddSubcategory = `
+mutation ($subcategory: String!) {
+  addSubcategory(subcategory: $subcategory)
 }
 `;

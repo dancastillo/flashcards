@@ -37,6 +37,9 @@ export default function Navbar() {
             <a href="/add-category">Add Cateogry</a>
           </li>
           <li>
+            <a href="/add-sub-category">Add Subcateogry</a>
+          </li>
+          <li>
             <a href="/test">Test</a>
           </li>
         </ul>
