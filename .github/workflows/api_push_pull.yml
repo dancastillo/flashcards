@@ -1,0 +1,48 @@
+name: API Push or Pull Request
+on:
+  push:
+  pull_request:
+    paths:
+      - "api/**"
+    branches:
+      - main
+      - master
+      - develop
+
+defaults:
+  run:
+    working-directory: ./api
+
+jobs:
+  pull_request:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up node version ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: API Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: API Linting
+        run: yarn lint
+
+      - name: API Audit
+        run: yarn audit
+        continue-on-error: true
+
+      - name: API Run tests
+        run: yarn test
+        continue-on-error: true
+
+      - name: API Build node
+        run: yarn build

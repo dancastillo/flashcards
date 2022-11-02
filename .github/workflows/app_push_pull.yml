@@ -1,0 +1,48 @@
+name: App Push or Pull Request
+on:
+  push:
+  pull_request:
+    paths:
+      - "app/**"
+    branches:
+      - main
+      - master
+      - develop
+
+defaults:
+  run:
+    working-directory: ./app
+
+jobs:
+  pull_request:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up node version ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: App Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: App Linting
+        run: yarn lint
+
+      - name: App Audit
+        run: yarn audit
+        continue-on-error: true
+
+      - name: App Run tests
+        run: yarn test
+        continue-on-error: true
+
+      - name: App Build node
+        run: yarn build

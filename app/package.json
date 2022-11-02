@@ -58,8 +58,7 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,css,html,js,jsx}": [
-        "npm run prettier:check",
-        "npm run lint"
+      "yarn lint"
     ]
   },
   "devDependencies": {
@@ -72,6 +71,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.31.10",
+    "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1"
   }

@@ -18,9 +18,9 @@ const buildContext = async (req: FastifyRequest, _reply: FastifyReply) => {
   };
 };
 
-declare module 'mercurius' {
-  type MercuriusContext = PromiseType<ReturnType<typeof buildContext>>;
-}
+// declare module 'mercurius' {
+//   type MercuriusContext = PromiseType<ReturnType<typeof buildContext>>;
+// }
 
 app.register(cors);
 
