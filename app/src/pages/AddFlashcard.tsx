@@ -82,16 +82,16 @@ export default function AddFlashcard() {
       <Input label="question" labelText="Question:" inputType="string" inputId="question" setState={setQuestion} />
       <Input label="answer" labelText="Answer:" inputType="string" inputId="answer" setState={setAnswer} />
       <Select
-        label="question"
+        label="question-category"
         labelText="Select a category:"
         selectId="categories"
         setState={setCategory}
         options={categoryOptions}
       />
       <Select
-        label="question"
-        labelText="Select a category:"
-        selectId="categories"
+        label="question-subcategory"
+        labelText="Select a subcategory:"
+        selectId="subcategories"
         setState={setSubcategory}
         options={subcategoryOptions}
       />

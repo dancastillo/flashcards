@@ -19,7 +19,7 @@ export default function AddSubcategory() {
     resetSuccessAndErrorMessages(setSuccess, setError);
 
     if (!subcategory) {
-      return handleError('Please enter a category', setError);
+      return handleError('Please enter a subcategory', setError);
     }
 
     const result = await addSubcategory({ subcategory });
@@ -36,10 +36,10 @@ export default function AddSubcategory() {
       {success && <div className="form-success">{success}</div>}
       {error && <div className="form-error">{error}</div>}
       <Input
-        label="category"
+        label="subcategory"
         labelText="What subcategory would you like to add?"
         inputType="string"
-        inputId="category"
+        inputId="subcategory"
         setState={setSubcategory}
       />
       <SubmitBtn />
