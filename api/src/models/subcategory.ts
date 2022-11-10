@@ -1,7 +1,8 @@
 import { Schema, model } from 'mongoose';
 
 export interface ISubcategory {
-  id?: string;
+  id: string;
+  _id?: string;
   subcategory: string;
 }
 

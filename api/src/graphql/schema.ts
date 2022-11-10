@@ -2,25 +2,32 @@ import { gql } from 'mercurius-codegen';
 
 const schema = gql`
   type Flashcard {
-    _id: ID!
+    id: ID!
     question: String!
     answer: String!
     category: String
   }
 
   type Category {
-    _id: ID!
-    category: String!
+    id: ID
+    category: String
+  }
+
+  type Subcategory {
+    id: ID
+    subcategory: String
   }
 
   type Query {
     flashcards: [Flashcard!]!
     categories: [Category!]!
+    subcategories: [Subcategory!]!
   }
 
   type Mutation {
     addFlashcard(question: String!, answer: String!, category: String): String
     addCategory(category: String!): String
+    addSubcategory(subcategory: String!): String
     createNotification(message: String!): Boolean!
   }
 

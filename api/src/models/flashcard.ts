@@ -1,9 +1,12 @@
 import { Schema, model } from 'mongoose';
 
 export interface IFlashcard {
+  id: string;
+  _id?: string;
   question: string;
   answer: string;
   category?: string;
+  subcategory?: string;
 }
 
 const flashcardSchema = new Schema<IFlashcard>({
@@ -16,6 +19,9 @@ const flashcardSchema = new Schema<IFlashcard>({
     require: true,
   },
   category: {
+    type: String,
+  },
+  subcategory: {
     type: String,
   },
 });

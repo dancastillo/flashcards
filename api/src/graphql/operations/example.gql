@@ -1,6 +1,6 @@
 query flashcards {
   flashcards {
-    _id
+    id
     question
     answer
     category
@@ -9,8 +9,15 @@ query flashcards {
 
 query categories {
   categories {
-    _id
+    id
     category
+  }
+}
+
+query subcategories {
+  subcategories {
+    id
+    subcategory
   }
 }
 
@@ -24,6 +31,10 @@ mutation addFlashcard($question: String!, $answer: String!, $category: String) {
 
 mutation addCategory($category: String!) {
   addCategory(category: $category)
+}
+
+mutation addSubcategory($subcategory: String!) {
+  addSubcategory(subcategory: $subcategory)
 }
 
 subscription newNotification {

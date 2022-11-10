@@ -1,6 +1,7 @@
 import { IResolvers } from 'mercurius';
 import Category, { ICategory } from '../models/category';
 import Flashcard, { IFlashcard } from '../models/flashcard';
+import Subcategory, { ISubcategory } from '../models/subcategory';
 
 const NOTIFICATION = 'notification';
 
@@ -8,12 +9,38 @@ const resolvers: IResolvers = {
   Query: {
     async flashcards(_, obj): Promise<IFlashcard[]> {
       const flashcards = await Flashcard.find();
-      return flashcards;
+
+      return flashcards.map(
+        ({ _id, question, answer, category, subcategory }: IFlashcard) => ({
+          id: _id,
+          question,
+          answer,
+          category,
+          subcategory,
+        })
+      );
     },
 
     async categories(_, obj): Promise<ICategory[]> {
       const categories = await Category.find();
-      return categories;
+
+      return categories.length
+        ? categories.map(({ _id, category }: ICategory) => ({
+            id: _id,
+            category,
+          }))
+        : [];
+    },
+
+    async subcategories(_, obj): Promise<ISubcategory[]> {
+      const subcategories = await Subcategory.find();
+
+      return subcategories.length
+        ? subcategories.map(({ _id, subcategory }: ISubcategory) => ({
+            id: _id,
+            subcategory,
+          }))
+        : [];
     },
   },
   Mutation: {
