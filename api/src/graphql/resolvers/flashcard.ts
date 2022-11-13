@@ -14,12 +14,17 @@ export const getAllFlashcards = async (): Promise<IFlashcard[]> => {
   );
 };
 
-export const addFlashcard = async (
-  question: string,
-  answer: string,
-  category?: string,
-  subcategory?: string,
-) => {
+export const addFlashcard = async ({
+  question,
+  answer,
+  category,
+  subcategory,
+}: {
+  question: string;
+  answer: string;
+  category?: string;
+  subcategory?: string;
+}) => {
   try {
     const flashcard = new Flashcard({
       question,
@@ -29,6 +34,32 @@ export const addFlashcard = async (
     });
 
     await flashcard.save();
+    return 'ok';
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+export const updateFlashcardById = async ({
+  id,
+  question,
+  answer,
+  category,
+  subcategory,
+}: {
+  id: string;
+  question: string;
+  answer: string;
+  category?: string;
+  subcategory?: string;
+}) => {
+  try {
+    await Flashcard.findOneAndUpdate(
+      { _id: id },
+      { question, answer, category, subcategory }
+    );
+
     return 'ok';
   } catch (err) {
     console.error(err);

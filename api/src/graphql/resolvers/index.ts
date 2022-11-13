@@ -1,7 +1,11 @@
 import { IResolvers } from 'mercurius';
 import { addCategory, getAllCategories } from './category';
-import { addFlashcard, getAllFlashcards } from './flashcard';
-import { getAllSubcategories } from './subcategory';
+import {
+  addFlashcard,
+  getAllFlashcards,
+  updateFlashcardById,
+} from './flashcard';
+import { addSubcategory, getAllSubcategories } from './subcategory';
 
 const NOTIFICATION = 'notification';
 
@@ -23,9 +27,13 @@ const resolvers: IResolvers = {
       });
       return true;
     },
-    addFlashcard: (_, { question, answer, category, subcategory }, ctx, info) => addFlashcard(question, answer, category, subcategory),
+    addFlashcard: (_, data) => addFlashcard(data),
 
-    addCategory: (_, data, ctx, info) => addCategory(data),
+    addCategory: (_, data) => addCategory(data),
+
+    addSubcategory: (_, data) => addSubcategory(data),
+
+    updateFlashcard: (_, data) => updateFlashcardById(data),
   },
   Subscription: {
     newNotification: {

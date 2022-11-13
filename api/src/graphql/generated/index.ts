@@ -39,6 +39,7 @@ export type Flashcard = {
   question: Scalars['String'];
   answer: Scalars['String'];
   category?: Maybe<Scalars['String']>;
+  subcategory?: Maybe<Scalars['String']>;
 };
 
 export type Category = {
@@ -65,6 +66,7 @@ export type Mutation = {
   addFlashcard?: Maybe<Scalars['String']>;
   addCategory?: Maybe<Scalars['String']>;
   addSubcategory?: Maybe<Scalars['String']>;
+  updateFlashcard?: Maybe<Scalars['String']>;
   createNotification: Scalars['Boolean'];
 };
 
@@ -81,6 +83,14 @@ export type MutationaddCategoryArgs = {
 
 export type MutationaddSubcategoryArgs = {
   subcategory: Scalars['String'];
+};
+
+export type MutationupdateFlashcardArgs = {
+  id: Scalars['ID'];
+  question: Scalars['String'];
+  answer: Scalars['String'];
+  category?: InputMaybe<Scalars['String']>;
+  subcategory?: InputMaybe<Scalars['String']>;
 };
 
 export type MutationcreateNotificationArgs = {
@@ -224,6 +234,11 @@ export type FlashcardResolvers<
   question?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   answer?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   category?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subcategory?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
   isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -292,6 +307,12 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationaddSubcategoryArgs, 'subcategory'>
   >;
+  updateFlashcard?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationupdateFlashcardArgs, 'id' | 'question' | 'answer'>
+  >;
   createNotification?: Resolver<
     ResolversTypes['Boolean'],
     ParentType,
@@ -353,6 +374,12 @@ export interface Loaders<
       {},
       TContext
     >;
+    subcategory?: LoaderResolver<
+      Maybe<Scalars['String']>,
+      Flashcard,
+      {},
+      TContext
+    >;
   };
 
   Category?: {
@@ -380,6 +407,7 @@ export type flashcardsQuery = {
     question: string;
     answer: string;
     category?: string | null;
+    subcategory?: string | null;
   }>;
 };
 
@@ -418,6 +446,7 @@ export type addFlashcardMutationVariables = Exact<{
   question: Scalars['String'];
   answer: Scalars['String'];
   category?: InputMaybe<Scalars['String']>;
+  subcategory?: InputMaybe<Scalars['String']>;
 }>;
 
 export type addFlashcardMutation = {
@@ -441,6 +470,19 @@ export type addSubcategoryMutationVariables = Exact<{
 export type addSubcategoryMutation = {
   __typename?: 'Mutation';
   addSubcategory?: string | null;
+};
+
+export type updateFlashcardMutationVariables = Exact<{
+  id: Scalars['ID'];
+  question: Scalars['String'];
+  answer: Scalars['String'];
+  category?: InputMaybe<Scalars['String']>;
+  subcategory?: InputMaybe<Scalars['String']>;
+}>;
+
+export type updateFlashcardMutation = {
+  __typename?: 'Mutation';
+  updateFlashcard?: string | null;
 };
 
 export type newNotificationSubscriptionVariables = Exact<{
@@ -472,6 +514,7 @@ export const flashcardsDocument = {
                 { kind: 'Field', name: { kind: 'Name', value: 'question' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'answer' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'category' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'subcategory' } },
               ],
             },
           },
@@ -624,6 +667,14 @@ export const addFlashcardDocument = {
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'subcategory' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
       ],
       selectionSet: {
         kind: 'SelectionSet',
@@ -654,6 +705,14 @@ export const addFlashcardDocument = {
                 value: {
                   kind: 'Variable',
                   name: { kind: 'Name', value: 'category' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'subcategory' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'subcategory' },
                 },
               },
             ],
@@ -758,6 +817,124 @@ export const addSubcategoryDocument = {
 } as unknown as DocumentNode<
   addSubcategoryMutation,
   addSubcategoryMutationVariables
+>;
+export const updateFlashcardDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'updateFlashcard' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'question' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'answer' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'category' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'subcategory' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'updateFlashcard' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'id' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'question' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'question' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'answer' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'answer' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'category' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'category' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'subcategory' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'subcategory' },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  updateFlashcardMutation,
+  updateFlashcardMutationVariables
 >;
 export const newNotificationDocument = {
   kind: 'Document',

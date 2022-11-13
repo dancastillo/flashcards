@@ -6,6 +6,7 @@ const schema = gql`
     question: String!
     answer: String!
     category: String
+    subcategory: String
   }
 
   type Category {
@@ -25,9 +26,21 @@ const schema = gql`
   }
 
   type Mutation {
-    addFlashcard(question: String!, answer: String!, category: String, subcategory: String): String
+    addFlashcard(
+      question: String!
+      answer: String!
+      category: String
+      subcategory: String
+    ): String
     addCategory(category: String!): String
     addSubcategory(subcategory: String!): String
+    updateFlashcard(
+      id: ID!
+      question: String!
+      answer: String!
+      category: String
+      subcategory: String
+    ): String
     createNotification(message: String!): Boolean!
   }
 
