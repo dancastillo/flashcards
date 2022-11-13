@@ -44,3 +44,9 @@ mutation ($subcategory: String!) {
   addSubcategory(subcategory: $subcategory)
 }
 `;
+
+export const UpdateFlashcard = `
+mutation ($id: ID!, $question: String!, $answer: String!, $category: String, $subcategory: String) {
+  updateFlashcard(id: $id, question: $question, answer: $answer, category: $category, subcategory: $subcategory)
+}
+`;

@@ -32,7 +32,7 @@ export default function AddSubcategory() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="add-form">
       {success && <div className="form-success">{success}</div>}
       {error && <div className="form-error">{error}</div>}
       <Input

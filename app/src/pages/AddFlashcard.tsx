@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { useMutation, useQuery } from 'urql';
 import Input from '../components/Input';
 import Select from '../components/Select';
 import SubmitBtn from '../components/SubmitBtn';
-import { CategoriesQuery, AddFlashcard as AddFlashcardMutation } from '../graphql';
-import { ICategory, IOptions } from '../types';
+import { CategoriesQuery, AddFlashcard as AddFlashcardMutation, SubcategoriesQuery } from '../graphql';
+import { ICategory, IOptions, ISubcategory } from '../types';
 import { resetSuccessAndErrorMessages, handleError, handleSuccess } from '../utils';
 
 export default function AddFlashcard() {
@@ -22,7 +23,7 @@ export default function AddFlashcard() {
   });
 
   const [subcategoryQuery] = useQuery({
-    query: CategoriesQuery,
+    query: SubcategoriesQuery,
   });
 
   async function handleSubmit(e: React.SyntheticEvent) {
@@ -62,21 +63,23 @@ export default function AddFlashcard() {
 
   let categoryOptions: IOptions[] = [];
   if (categoryQuery.data) {
-    categoryOptions = categoryQuery.data.categories.map((dataCategory: ICategory) => ({
-      id: dataCategory.id,
-      value: dataCategory.category,
-    }));
+    categoryOptions = categoryQuery.data.categories.map((dataCategory: ICategory) => {
+      return {
+        id: dataCategory.id,
+        value: dataCategory.category,
+      };
+    });
   }
 
   let subcategoryOptions: IOptions[] = [];
   if (subcategoryQuery.data) {
-    subcategoryOptions = subcategoryQuery.data.categories.map((dataSubcategory: ICategory) => ({
+    subcategoryOptions = subcategoryQuery.data.subcategories.map((dataSubcategory: ISubcategory) => ({
       id: dataSubcategory.id,
-      value: dataSubcategory.category,
+      value: dataSubcategory.subcategory,
     }));
   }
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="add-form">
       {success && <div className="form-success">{success}</div>}
       {requestError && <div className="form-error">{requestError}</div>}
       <Input label="question" labelText="Question:" inputType="string" inputId="question" setState={setQuestion} />

@@ -3,6 +3,7 @@ export interface IFlashcard {
   question: string;
   answer: string;
   category?: string;
+  subcategory?: string;
   options?: string[];
 }
 
@@ -11,9 +12,15 @@ export interface ICategory {
   category: string;
 }
 
+export interface ISubcategory {
+  id: string;
+  subcategory: string;
+}
+
 export interface IOptions {
   id: string;
   value: string;
+  selected?: boolean;
 }
 
 export interface ISelect {
@@ -22,6 +29,7 @@ export interface ISelect {
   selectId: string;
   setState: Function;
   options: IOptions[];
+  optionSelected?: string;
 }
 
 export interface IInput {
@@ -30,4 +38,5 @@ export interface IInput {
   inputType: string;
   inputId: string;
   setState: Function;
+  value?: string;
 }
