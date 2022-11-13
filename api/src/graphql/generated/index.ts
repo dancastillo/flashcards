@@ -72,6 +72,7 @@ export type MutationaddFlashcardArgs = {
   question: Scalars['String'];
   answer: Scalars['String'];
   category?: InputMaybe<Scalars['String']>;
+  subcategory?: InputMaybe<Scalars['String']>;
 };
 
 export type MutationaddCategoryArgs = {

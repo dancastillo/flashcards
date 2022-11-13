@@ -15,7 +15,7 @@ module.exports = {
   ],
   ignorePatterns: ['.eslintrc.cjs'],
   rules: {
-    'prettier/prettier': 'error',
+    'max-len': ['error', { code: 150 }],
   },
 
 }
