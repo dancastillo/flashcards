@@ -1,10 +1,6 @@
 import { IResolvers } from 'mercurius';
 import { addCategory, getAllCategories } from './category';
-import {
-  addFlashcard,
-  getAllFlashcards,
-  updateFlashcardById,
-} from './flashcard';
+import { addFlashcard, getAllFlashcards, updateFlashcardById } from './flashcard';
 import { addSubcategory, getAllSubcategories } from './subcategory';
 
 const NOTIFICATION = 'notification';

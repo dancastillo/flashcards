@@ -27,11 +27,12 @@ module.exports = {
     'prettier'
   ],
   rules: {
-    'prettier/prettier': 'off',
+    'prettier/prettier': 0,
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
     'no-underscore-dangle': 'off',
     'react/button-has-type': 'off',
     'max-len': ['error', { 'code': 150 }],
+    'object-curly-newline': 'off'
   }
 }
