@@ -24,8 +24,8 @@
     "data:import": "node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm scripts/importData.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prettier:check": "prettier --config .prettierrc --check \"src/**/*.{ts,tsx,css,html,js,jsx}\"",
-    "prettier:write": "prettier --config .prettierrc --write \"src/**/*.{ts,tsx,css,html,js,jsx}\"",
+    "prettier": "prettier --check \"src/**/*.{ts,tsx,css,html,js,jsx}\"",
+    "prettier:fix": "prettier --write \"src/**/*.{ts,tsx,css,html,js,jsx}\"",
     "test": "env NODE_ENV=test jest test --detectOpenHandles",
     "prepare": "cd ../ && husky install ./api/.husky"
   },

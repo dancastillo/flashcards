@@ -17,9 +17,7 @@ export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
-) =>
-  | Promise<import('mercurius-codegen').DeepPartial<TResult>>
-  | import('mercurius-codegen').DeepPartial<TResult>;
+) => Promise<import('mercurius-codegen').DeepPartial<TResult>> | import('mercurius-codegen').DeepPartial<TResult>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
   [P in K]-?: NonNullable<T[P]>;
 };
@@ -125,25 +123,9 @@ export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
-export interface SubscriptionSubscriberObject<
-  TResult,
-  TKey extends string,
-  TParent,
-  TContext,
-  TArgs
-> {
-  subscribe: SubscriptionSubscribeFn<
-    { [key in TKey]: TResult },
-    TParent,
-    TContext,
-    TArgs
-  >;
-  resolve?: SubscriptionResolveFn<
-    TResult,
-    { [key in TKey]: TResult },
-    TContext,
-    TArgs
-  >;
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
+  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
 }
 
 export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
@@ -151,26 +133,12 @@ export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
   resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
 }
 
-export type SubscriptionObject<
-  TResult,
-  TKey extends string,
-  TParent,
-  TContext,
-  TArgs
-> =
+export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
   | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
   | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
 
-export type SubscriptionResolver<
-  TResult,
-  TKey extends string,
-  TParent = {},
-  TContext = {},
-  TArgs = {}
-> =
-  | ((
-      ...args: any[]
-    ) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
+  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
   | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
 
 export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
@@ -179,20 +147,11 @@ export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   info: GraphQLResolveInfo
 ) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type IsTypeOfResolverFn<T = {}, TContext = {}> = (
-  obj: T,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => boolean | Promise<boolean>;
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
 
 export type NextResolverFn<T> = () => Promise<T>;
 
-export type DirectiveResolverFn<
-  TResult = {},
-  TParent = {},
-  TContext = {},
-  TArgs = {}
-> = (
+export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
   next: NextResolverFn<TResult>,
   parent: TParent,
   args: TArgs,
@@ -234,11 +193,7 @@ export type FlashcardResolvers<
   question?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   answer?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   category?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  subcategory?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
+  subcategory?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -256,81 +211,37 @@ export type SubcategoryResolvers<
   ParentType extends ResolversParentTypes['Subcategory'] = ResolversParentTypes['Subcategory']
 > = {
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  subcategory?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType
-  >;
+  subcategory?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type QueryResolvers<
-  ContextType = MercuriusContext,
-  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
-> = {
-  flashcards?: Resolver<
-    Array<ResolversTypes['Flashcard']>,
-    ParentType,
-    ContextType
-  >;
-  categories?: Resolver<
-    Array<ResolversTypes['Category']>,
-    ParentType,
-    ContextType
-  >;
-  subcategories?: Resolver<
-    Array<ResolversTypes['Subcategory']>,
-    ParentType,
-    ContextType
-  >;
+export type QueryResolvers<ContextType = MercuriusContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  flashcards?: Resolver<Array<ResolversTypes['Flashcard']>, ParentType, ContextType>;
+  categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
+  subcategories?: Resolver<Array<ResolversTypes['Subcategory']>, ParentType, ContextType>;
 };
 
 export type MutationResolvers<
   ContextType = MercuriusContext,
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
 > = {
-  addFlashcard?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationaddFlashcardArgs, 'question' | 'answer'>
-  >;
-  addCategory?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationaddCategoryArgs, 'category'>
-  >;
-  addSubcategory?: Resolver<
-    Maybe<ResolversTypes['String']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationaddSubcategoryArgs, 'subcategory'>
-  >;
+  addFlashcard?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationaddFlashcardArgs, 'question' | 'answer'>>;
+  addCategory?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationaddCategoryArgs, 'category'>>;
+  addSubcategory?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationaddSubcategoryArgs, 'subcategory'>>;
   updateFlashcard?: Resolver<
     Maybe<ResolversTypes['String']>,
     ParentType,
     ContextType,
     RequireFields<MutationupdateFlashcardArgs, 'id' | 'question' | 'answer'>
   >;
-  createNotification?: Resolver<
-    ResolversTypes['Boolean'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationcreateNotificationArgs, 'message'>
-  >;
+  createNotification?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationcreateNotificationArgs, 'message'>>;
 };
 
 export type SubscriptionResolvers<
   ContextType = MercuriusContext,
   ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']
 > = {
-  newNotification?: SubscriptionResolver<
-    ResolversTypes['String'],
-    'newNotification',
-    ParentType,
-    ContextType
-  >;
+  newNotification?: SubscriptionResolver<ResolversTypes['String'], 'newNotification', ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = MercuriusContext> = {
@@ -368,18 +279,8 @@ export interface Loaders<
     id?: LoaderResolver<Scalars['ID'], Flashcard, {}, TContext>;
     question?: LoaderResolver<Scalars['String'], Flashcard, {}, TContext>;
     answer?: LoaderResolver<Scalars['String'], Flashcard, {}, TContext>;
-    category?: LoaderResolver<
-      Maybe<Scalars['String']>,
-      Flashcard,
-      {},
-      TContext
-    >;
-    subcategory?: LoaderResolver<
-      Maybe<Scalars['String']>,
-      Flashcard,
-      {},
-      TContext
-    >;
+    category?: LoaderResolver<Maybe<Scalars['String']>, Flashcard, {}, TContext>;
+    subcategory?: LoaderResolver<Maybe<Scalars['String']>, Flashcard, {}, TContext>;
   };
 
   Category?: {
@@ -389,12 +290,7 @@ export interface Loaders<
 
   Subcategory?: {
     id?: LoaderResolver<Maybe<Scalars['ID']>, Subcategory, {}, TContext>;
-    subcategory?: LoaderResolver<
-      Maybe<Scalars['String']>,
-      Subcategory,
-      {},
-      TContext
-    >;
+    subcategory?: LoaderResolver<Maybe<Scalars['String']>, Subcategory, {}, TContext>;
   };
 }
 export type flashcardsQueryVariables = Exact<{ [key: string]: never }>;
@@ -619,10 +515,7 @@ export const createNotificationDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  createNotificationMutation,
-  createNotificationMutationVariables
->;
+} as unknown as DocumentNode<createNotificationMutation, createNotificationMutationVariables>;
 export const addFlashcardDocument = {
   kind: 'Document',
   definitions: [
@@ -721,10 +614,7 @@ export const addFlashcardDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  addFlashcardMutation,
-  addFlashcardMutationVariables
->;
+} as unknown as DocumentNode<addFlashcardMutation, addFlashcardMutationVariables>;
 export const addCategoryDocument = {
   kind: 'Document',
   definitions: [
@@ -814,10 +704,7 @@ export const addSubcategoryDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  addSubcategoryMutation,
-  addSubcategoryMutationVariables
->;
+} as unknown as DocumentNode<addSubcategoryMutation, addSubcategoryMutationVariables>;
 export const updateFlashcardDocument = {
   kind: 'Document',
   definitions: [
@@ -932,10 +819,7 @@ export const updateFlashcardDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  updateFlashcardMutation,
-  updateFlashcardMutationVariables
->;
+} as unknown as DocumentNode<updateFlashcardMutation, updateFlashcardMutationVariables>;
 export const newNotificationDocument = {
   kind: 'Document',
   definitions: [
@@ -945,18 +829,12 @@ export const newNotificationDocument = {
       name: { kind: 'Name', value: 'newNotification' },
       selectionSet: {
         kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'newNotification' } },
-        ],
+        selections: [{ kind: 'Field', name: { kind: 'Name', value: 'newNotification' } }],
       },
     },
   ],
-} as unknown as DocumentNode<
-  newNotificationSubscription,
-  newNotificationSubscriptionVariables
->;
+} as unknown as DocumentNode<newNotificationSubscription, newNotificationSubscriptionVariables>;
 declare module 'mercurius' {
-  interface IResolvers
-    extends Resolvers<import('mercurius').MercuriusContext> {}
+  interface IResolvers extends Resolvers<import('mercurius').MercuriusContext> {}
   interface MercuriusLoaders extends Loaders {}
 }

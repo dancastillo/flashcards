@@ -36,9 +36,7 @@ app.register(mercurius, {
 });
 
 // healthcheck endpoint
-app.get('/ping', (_: FastifyRequest, reply: FastifyReply) =>
-  reply.send({ ok: true })
-);
+app.get('/ping', (_: FastifyRequest, reply: FastifyReply) => reply.send({ ok: true }));
 
 codegenMercurius(app, {
   targetPath: './src/graphql/generated/index.ts',

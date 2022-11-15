@@ -5,5 +5,5 @@ module.exports = {
   useTabs: false,
   bracketSpacing: true,
   semi: true,
-  lineWidth: 150,
+  printWidth: 150,
 }
