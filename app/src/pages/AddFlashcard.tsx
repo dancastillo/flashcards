@@ -84,13 +84,7 @@ export default function AddFlashcard() {
       {requestError && <div className="form-error">{requestError}</div>}
       <Input label="question" labelText="Question:" inputType="string" inputId="question" setState={setQuestion} />
       <Input label="answer" labelText="Answer:" inputType="string" inputId="answer" setState={setAnswer} />
-      <Select
-        label="question-category"
-        labelText="Select a category:"
-        selectId="categories"
-        setState={setCategory}
-        options={categoryOptions}
-      />
+      <Select label="question-category" labelText="Select a category:" selectId="categories" setState={setCategory} options={categoryOptions} />
       <Select
         label="question-subcategory"
         labelText="Select a subcategory:"

@@ -11,15 +11,7 @@ import Select from './Select';
 import SubmitBtn from './SubmitBtn';
 import { CategoriesQuery, UpdateFlashcard as UpdateFlashcardMutation, SubcategoriesQuery } from '../graphql';
 
-export default function EditModal({
-  show,
-  close,
-  flashcard,
-}: {
-  show: boolean;
-  close: Function;
-  flashcard: IFlashcard;
-}) {
+export default function EditModal({ show, close, flashcard }: { show: boolean; close: Function; flashcard: IFlashcard }) {
   const [requestError, setRequestError] = useState('');
   const [success, setSuccess] = useState('');
   const [id, setId] = useState(flashcard.id);
@@ -42,7 +34,6 @@ export default function EditModal({
     resetSuccessAndErrorMessages(setSuccess, setRequestError);
 
     if (!id) {
-      console.error(`Missing id for flashcard: ${JSON.stringify(flashcard)}`);
       return handleError('Missing flashcard id!', setRequestError);
     }
 
@@ -102,22 +93,8 @@ export default function EditModal({
           <form onSubmit={handleSubmitEdit}>
             {success && <div className="form-success">{success}</div>}
             {requestError && <div className="form-error">{requestError}</div>}
-            <Input
-              label="question"
-              labelText="Question:"
-              inputType="string"
-              inputId="question"
-              setState={setQuestion}
-              value={question}
-            />
-            <Input
-              label="answer"
-              labelText="Answer:"
-              inputType="string"
-              inputId="answer"
-              setState={setAnswer}
-              value={answer}
-            />
+            <Input label="question" labelText="Question:" inputType="string" inputId="question" setState={setQuestion} value={question} />
+            <Input label="answer" labelText="Answer:" inputType="string" inputId="answer" setState={setAnswer} value={answer} />
             <Select
               label="question-category"
               labelText="Select a category:"

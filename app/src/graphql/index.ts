@@ -5,6 +5,7 @@ query {
     question
     answer
     category
+    subcategory
   }
 }
 `;
@@ -28,8 +29,8 @@ query {
 `;
 
 export const AddFlashcard = `
-mutation ($question: String!, $answer: String!, $category: String) {
-  addFlashcard(question: $question, answer: $answer, category: $category)
+mutation ($question: String!, $answer: String!, $category: String, $subcategory: String) {
+  addFlashcard(question: $question, answer: $answer, category: $category, subcategory: $subcategory)
 }
 `;
 

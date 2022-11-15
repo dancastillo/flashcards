@@ -32,8 +32,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "prettier:check": "prettier --config .prettierrc --check \"src/**/*.{ts,tsx,css,html,js,jsx}\"",
-    "prettier:write": "prettier --config .prettierrc --write \"src/**/*.{ts,tsx,css,html,js,jsx}\"",
+    "prettier": "prettier --check \"src/**/*.{ts,tsx,css,html,js,jsx}\"",
+    "prettier:fix": "prettier --write \"src/**/*.{ts,tsx,css,html,js,jsx}\"",
     "prepare": "cd ../ && husky install ./app/.husky"
   },
   "eslintConfig": {

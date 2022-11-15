@@ -4,14 +4,14 @@ body {
 }
 
 .container {
-  max-width: 900px;
+  max-width: -webkit-fill-available;
   margin: 1rem 2rem;
 }
 
 .card-grid {
   display: grid;
   align-items: center;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
 }
 
@@ -38,7 +38,8 @@ body {
   --rotate-y: 180deg;
 }
 
-.card .front, .card .front-edit {
+.card .front,
+.card .front-edit {
   left: 0;
 }
 
@@ -66,7 +67,7 @@ body {
 }
 
 .flashcard-option {
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
   color: #555;
   font-size: 0.75rem;
 }
@@ -74,7 +75,6 @@ body {
 .flashcard-option:first-child {
   margin-top: 0;
 }
-
 
 .modal-overlay {
   z-index: 9999;

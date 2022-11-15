@@ -35,13 +35,7 @@ export default function AddCategory() {
     <form onSubmit={handleSubmit} className="add-form">
       {success && <div className="form-success">{success}</div>}
       {error && <div className="form-error">{error}</div>}
-      <Input
-        label="category"
-        labelText="What category would you like to add?"
-        inputType="string"
-        inputId="category"
-        setState={setCategory}
-      />
+      <Input label="category" labelText="What category would you like to add?" inputType="string" inputId="category" setState={setCategory} />
       <SubmitBtn />
     </form>
   );

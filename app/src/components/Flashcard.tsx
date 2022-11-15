@@ -15,7 +15,7 @@ export default function Flashcard({ flashcard }: { flashcard: IFlashcard }) {
   function setMaxHeight() {
     const frontHeight = frontEl.current!.getBoundingClientRect().height;
     const backHeight = frontEl.current!.getBoundingClientRect().height;
-    setHeight(Math.max(frontHeight, backHeight, 100));
+    setHeight(Math.max(frontHeight, backHeight, 250));
   }
 
   function editItem() {
@@ -40,6 +40,10 @@ export default function Flashcard({ flashcard }: { flashcard: IFlashcard }) {
         <div className="front" ref={frontEl}>
           {flashcard.question}
           <div className="flashcard">
+            <div className="flashcard-option">
+              {flashcard.category && <p>Category: {flashcard.category}</p>}
+              {flashcard.subcategory && <p>Subcategory: {flashcard.subcategory}</p>}
+            </div>
             {flashcard.options?.map((option) => (
               <div className="flashcard-option" key={option}>
                 {option}
