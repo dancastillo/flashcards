@@ -1,9 +1,8 @@
 name: App Push or Pull Request
 on:
-  push:
   pull_request:
     paths:
-      - "app/**"
+      - app/**
     branches:
       - main
       - master
