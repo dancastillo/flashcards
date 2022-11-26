@@ -23,6 +23,7 @@ const schema = gql`
     flashcards: [Flashcard!]!
     categories: [Category!]!
     subcategories: [Subcategory!]!
+    getFlashcardsByCategory(category: String!): [Flashcard!]!
   }
 
   type Mutation {

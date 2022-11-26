@@ -3,24 +3,16 @@ import type { MercuriusContext } from 'mercurius';
 import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
 ) => Promise<import('mercurius-codegen').DeepPartial<TResult>> | import('mercurius-codegen').DeepPartial<TResult>;
-export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
-  [P in K]-?: NonNullable<T[P]>;
-};
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -57,6 +49,11 @@ export type Query = {
   flashcards: Array<Flashcard>;
   categories: Array<Category>;
   subcategories: Array<Subcategory>;
+  getFlashcardsByCategory: Array<Flashcard>;
+};
+
+export type QuerygetFlashcardsByCategoryArgs = {
+  category: Scalars['String'];
 };
 
 export type Mutation = {
@@ -219,6 +216,12 @@ export type QueryResolvers<ContextType = MercuriusContext, ParentType extends Re
   flashcards?: Resolver<Array<ResolversTypes['Flashcard']>, ParentType, ContextType>;
   categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
   subcategories?: Resolver<Array<ResolversTypes['Subcategory']>, ParentType, ContextType>;
+  getFlashcardsByCategory?: Resolver<
+    Array<ResolversTypes['Flashcard']>,
+    ParentType,
+    ContextType,
+    RequireFields<QuerygetFlashcardsByCategoryArgs, 'category'>
+  >;
 };
 
 export type MutationResolvers<
@@ -270,11 +273,7 @@ export type LoaderResolver<TReturn, TObj, TParams, TContext> =
         cache?: boolean;
       };
     };
-export interface Loaders<
-  TContext = import('mercurius').MercuriusContext & {
-    reply: import('fastify').FastifyReply;
-  }
-> {
+export interface Loaders<TContext = import('mercurius').MercuriusContext & { reply: import('fastify').FastifyReply }> {
   Flashcard?: {
     id?: LoaderResolver<Scalars['ID'], Flashcard, {}, TContext>;
     question?: LoaderResolver<Scalars['String'], Flashcard, {}, TContext>;
@@ -309,34 +308,20 @@ export type flashcardsQuery = {
 
 export type categoriesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type categoriesQuery = {
-  __typename?: 'Query';
-  categories: Array<{
-    __typename?: 'Category';
-    id?: string | null;
-    category?: string | null;
-  }>;
-};
+export type categoriesQuery = { __typename?: 'Query'; categories: Array<{ __typename?: 'Category'; id?: string | null; category?: string | null }> };
 
 export type subcategoriesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type subcategoriesQuery = {
   __typename?: 'Query';
-  subcategories: Array<{
-    __typename?: 'Subcategory';
-    id?: string | null;
-    subcategory?: string | null;
-  }>;
+  subcategories: Array<{ __typename?: 'Subcategory'; id?: string | null; subcategory?: string | null }>;
 };
 
 export type createNotificationMutationVariables = Exact<{
   message: Scalars['String'];
 }>;
 
-export type createNotificationMutation = {
-  __typename?: 'Mutation';
-  createNotification: boolean;
-};
+export type createNotificationMutation = { __typename?: 'Mutation'; createNotification: boolean };
 
 export type addFlashcardMutationVariables = Exact<{
   question: Scalars['String'];
@@ -345,28 +330,19 @@ export type addFlashcardMutationVariables = Exact<{
   subcategory?: InputMaybe<Scalars['String']>;
 }>;
 
-export type addFlashcardMutation = {
-  __typename?: 'Mutation';
-  addFlashcard?: string | null;
-};
+export type addFlashcardMutation = { __typename?: 'Mutation'; addFlashcard?: string | null };
 
 export type addCategoryMutationVariables = Exact<{
   category: Scalars['String'];
 }>;
 
-export type addCategoryMutation = {
-  __typename?: 'Mutation';
-  addCategory?: string | null;
-};
+export type addCategoryMutation = { __typename?: 'Mutation'; addCategory?: string | null };
 
 export type addSubcategoryMutationVariables = Exact<{
   subcategory: Scalars['String'];
 }>;
 
-export type addSubcategoryMutation = {
-  __typename?: 'Mutation';
-  addSubcategory?: string | null;
-};
+export type addSubcategoryMutation = { __typename?: 'Mutation'; addSubcategory?: string | null };
 
 export type updateFlashcardMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -376,19 +352,11 @@ export type updateFlashcardMutationVariables = Exact<{
   subcategory?: InputMaybe<Scalars['String']>;
 }>;
 
-export type updateFlashcardMutation = {
-  __typename?: 'Mutation';
-  updateFlashcard?: string | null;
-};
+export type updateFlashcardMutation = { __typename?: 'Mutation'; updateFlashcard?: string | null };
 
-export type newNotificationSubscriptionVariables = Exact<{
-  [key: string]: never;
-}>;
+export type newNotificationSubscriptionVariables = Exact<{ [key: string]: never }>;
 
-export type newNotificationSubscription = {
-  __typename?: 'Subscription';
-  newNotification: string;
-};
+export type newNotificationSubscription = { __typename?: 'Subscription'; newNotification: string };
 
 export const flashcardsDocument = {
   kind: 'Document',
@@ -481,17 +449,8 @@ export const createNotificationDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'message' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'message' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
         },
       ],
       selectionSet: {
@@ -501,14 +460,7 @@ export const createNotificationDocument = {
             kind: 'Field',
             name: { kind: 'Name', value: 'createNotification' },
             arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'message' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'message' },
-                },
-              },
+              { kind: 'Argument', name: { kind: 'Name', value: 'message' }, value: { kind: 'Variable', name: { kind: 'Name', value: 'message' } } },
             ],
           },
         ],
@@ -526,46 +478,22 @@ export const addFlashcardDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'question' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'question' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'answer' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'answer' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'category' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'category' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'subcategory' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'subcategory' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
       ],
@@ -576,37 +504,13 @@ export const addFlashcardDocument = {
             kind: 'Field',
             name: { kind: 'Name', value: 'addFlashcard' },
             arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'question' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'question' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'answer' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'answer' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'category' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'category' },
-                },
-              },
+              { kind: 'Argument', name: { kind: 'Name', value: 'question' }, value: { kind: 'Variable', name: { kind: 'Name', value: 'question' } } },
+              { kind: 'Argument', name: { kind: 'Name', value: 'answer' }, value: { kind: 'Variable', name: { kind: 'Name', value: 'answer' } } },
+              { kind: 'Argument', name: { kind: 'Name', value: 'category' }, value: { kind: 'Variable', name: { kind: 'Name', value: 'category' } } },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'subcategory' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'subcategory' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'subcategory' } },
               },
             ],
           },
@@ -625,17 +529,8 @@ export const addCategoryDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'category' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'category' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
         },
       ],
       selectionSet: {
@@ -645,14 +540,7 @@ export const addCategoryDocument = {
             kind: 'Field',
             name: { kind: 'Name', value: 'addCategory' },
             arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'category' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'category' },
-                },
-              },
+              { kind: 'Argument', name: { kind: 'Name', value: 'category' }, value: { kind: 'Variable', name: { kind: 'Name', value: 'category' } } },
             ],
           },
         ],
@@ -670,17 +558,8 @@ export const addSubcategoryDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'subcategory' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'subcategory' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
         },
       ],
       selectionSet: {
@@ -693,10 +572,7 @@ export const addSubcategoryDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'subcategory' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'subcategory' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'subcategory' } },
               },
             ],
           },
@@ -716,53 +592,26 @@ export const updateFlashcardDocument = {
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } },
-          },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ID' } } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'question' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'question' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'answer' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'answer' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'category' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'category' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
         {
           kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'subcategory' },
-          },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'subcategory' } },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
         },
       ],
@@ -773,45 +622,14 @@ export const updateFlashcardDocument = {
             kind: 'Field',
             name: { kind: 'Name', value: 'updateFlashcard' },
             arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'id' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'question' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'question' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'answer' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'answer' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'category' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'category' },
-                },
-              },
+              { kind: 'Argument', name: { kind: 'Name', value: 'id' }, value: { kind: 'Variable', name: { kind: 'Name', value: 'id' } } },
+              { kind: 'Argument', name: { kind: 'Name', value: 'question' }, value: { kind: 'Variable', name: { kind: 'Name', value: 'question' } } },
+              { kind: 'Argument', name: { kind: 'Name', value: 'answer' }, value: { kind: 'Variable', name: { kind: 'Name', value: 'answer' } } },
+              { kind: 'Argument', name: { kind: 'Name', value: 'category' }, value: { kind: 'Variable', name: { kind: 'Name', value: 'category' } } },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'subcategory' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'subcategory' },
-                },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'subcategory' } },
               },
             ],
           },
@@ -827,10 +645,7 @@ export const newNotificationDocument = {
       kind: 'OperationDefinition',
       operation: 'subscription',
       name: { kind: 'Name', value: 'newNotification' },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [{ kind: 'Field', name: { kind: 'Name', value: 'newNotification' } }],
-      },
+      selectionSet: { kind: 'SelectionSet', selections: [{ kind: 'Field', name: { kind: 'Name', value: 'newNotification' } }] },
     },
   ],
 } as unknown as DocumentNode<newNotificationSubscription, newNotificationSubscriptionVariables>;

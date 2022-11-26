@@ -1,6 +1,6 @@
 import { IResolvers } from 'mercurius';
 import { addCategory, getAllCategories } from './category';
-import { addFlashcard, getAllFlashcards, updateFlashcardById } from './flashcard';
+import { addFlashcard, getAllFlashcards, getFlashcardsByCategory, updateFlashcardById } from './flashcard';
 import { addSubcategory, getAllSubcategories } from './subcategory';
 
 const NOTIFICATION = 'notification';
@@ -12,6 +12,8 @@ const resolvers: IResolvers = {
     categories: () => getAllCategories(),
 
     subcategories: () => getAllSubcategories(),
+
+    getFlashcardsByCategory: (_, data) => getFlashcardsByCategory(data.category), 
   },
   Mutation: {
     createNotification(_root, { message }, { pubsub }) {

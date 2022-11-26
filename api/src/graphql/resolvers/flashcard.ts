@@ -1,15 +1,19 @@
 import Flashcard, { IFlashcard } from '../../models/flashcard';
 
-export const getAllFlashcards = async (): Promise<IFlashcard[]> => {
-  const flashcards = await Flashcard.find();
-
-  return flashcards.map(({ _id, question, answer, category, subcategory }: IFlashcard) => ({
+const mapResults = (flashcardsArr: IFlashcard[]): IFlashcard[] => {
+  return flashcardsArr.map(({ _id, question, answer, category, subcategory }: IFlashcard) => ({
     id: _id,
     question,
     answer,
     category,
     subcategory,
   }));
+}
+
+export const getAllFlashcards = async (): Promise<IFlashcard[]> => {
+  const flashcards = await Flashcard.find();
+
+  return mapResults(flashcards);
 };
 
 export const addFlashcard = async ({
@@ -61,3 +65,10 @@ export const updateFlashcardById = async ({
     throw err;
   }
 };
+
+export const getFlashcardsByCategory = async (category: string) => {
+  const flashcards = await Flashcard.find({ category }).exec();
+
+  return mapResults(flashcards);
+}
+
