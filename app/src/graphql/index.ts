@@ -28,6 +28,18 @@ query {
 }
 `;
 
+export const GetFlashcardsByCategoryQuery = `
+query ($category: String) {
+  getFlashcardsByCategory(category: $category) {
+    id
+    question
+    answer
+    category
+    subcategory
+  }
+}
+`;
+
 export const AddFlashcard = `
 mutation ($question: String!, $answer: String!, $category: String, $subcategory: String) {
   addFlashcard(question: $question, answer: $answer, category: $category, subcategory: $subcategory)
