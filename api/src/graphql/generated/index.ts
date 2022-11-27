@@ -53,7 +53,7 @@ export type Query = {
 };
 
 export type QuerygetFlashcardsByCategoryArgs = {
-  category: Scalars['String'];
+  category?: InputMaybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -216,12 +216,7 @@ export type QueryResolvers<ContextType = MercuriusContext, ParentType extends Re
   flashcards?: Resolver<Array<ResolversTypes['Flashcard']>, ParentType, ContextType>;
   categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
   subcategories?: Resolver<Array<ResolversTypes['Subcategory']>, ParentType, ContextType>;
-  getFlashcardsByCategory?: Resolver<
-    Array<ResolversTypes['Flashcard']>,
-    ParentType,
-    ContextType,
-    RequireFields<QuerygetFlashcardsByCategoryArgs, 'category'>
-  >;
+  getFlashcardsByCategory?: Resolver<Array<ResolversTypes['Flashcard']>, ParentType, ContextType, Partial<QuerygetFlashcardsByCategoryArgs>>;
 };
 
 export type MutationResolvers<

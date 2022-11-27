@@ -67,6 +67,10 @@ export const updateFlashcardById = async ({
 };
 
 export const getFlashcardsByCategory = async (category: string) => {
+  if (!category) {
+    return [];
+  }
+
   const flashcards = await Flashcard.find({ category }).exec();
 
   return mapResults(flashcards);
