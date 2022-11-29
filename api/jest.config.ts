@@ -19,6 +19,10 @@ const config: Config.InitialOptions = {
     // Ignore Coverage For these Files
     '!src/__tests__/**/*.ts',
     '!src/app.ts',
+    '!src/**/index.ts',
+    '!src/models/**',
+    '!src/graphql/generated/index.ts',
+    '!src/graphql/schema.ts',
   ],
   coverageReporters: ['html', 'json', 'text'],
   reporters: ['default'],
