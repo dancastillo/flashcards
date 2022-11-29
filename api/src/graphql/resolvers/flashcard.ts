@@ -1,6 +1,6 @@
 import Flashcard, { IFlashcard } from '../../models/flashcard';
 
-const mapResults = (flashcardsArr: IFlashcard[]): IFlashcard[] => {
+export const mapResults = (flashcardsArr: IFlashcard[]): IFlashcard[] => {
   return flashcardsArr.map(({ _id, question, answer, category, subcategory }: IFlashcard) => ({
     id: _id,
     question,

@@ -3,7 +3,6 @@ import { codegenMercurius } from 'mercurius-codegen';
 import cors from '@fastify/cors';
 import mercurius from 'mercurius';
 import { resolvers, schema } from './graphql';
-// import { loaders, resolvers, schema } from './graphql'
 import db from './config/db';
 import { PromiseType } from './config/types';
 
@@ -18,10 +17,6 @@ const buildContext = async (req: FastifyRequest, _reply: FastifyReply) => {
   };
 };
 
-// declare module 'mercurius' {
-//   type MercuriusContext = PromiseType<ReturnType<typeof buildContext>>;
-// }
-
 app.register(cors);
 
 app.register(db);
@@ -29,7 +24,6 @@ app.register(db);
 app.register(mercurius, {
   schema,
   resolvers,
-  // loaders,
   context: buildContext,
   subscription: true,
   graphiql: 'graphiql',
