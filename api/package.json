@@ -26,7 +26,7 @@
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check \"src/**/*.{ts,tsx,css,html,js,jsx}\"",
     "prettier:fix": "prettier --write \"src/**/*.{ts,tsx,css,html,js,jsx}\"",
-    "test": "env NODE_ENV=test jest--detectOpenHandles",
+    "test": "env NODE_ENV=test jest --detectOpenHandles",
     "test:unt": "env NODE_ENV=test jest test --detectOpenHandles",
     "prepare": "cd ../ && husky install ./api/.husky"
   },

@@ -1,23 +1,8 @@
-import { randomUUID } from 'crypto';
-import { mapResults } from '../../../graphql/resolvers/flashcard';
-import { IFlashcard } from '../../../models/flashcard';
+import { addFlashcard, mapResults, updateFlashcardById } from '../../../graphql/resolvers/flashcard';
+import Flashcard from '../../../models/flashcard';
+import { fakeFlashcards, id1, id2 } from '../../data';
 
 describe('grapql/resolvers/flashcard.ts', () => {
-  
-  const id1 = randomUUID();
-  const id2 = randomUUID();
-  const fakeFlashcards = [{
-    _id: id1,
-    question: 'question',
-    answer: 'answer',
-    category: 'category',
-    subcategory: 'subcategory',
-  }, {
-    _id: id2, 
-    question: 'question2',
-    answer: 'answer2',
-  }] as IFlashcard[];
-
   it('mapResults should return flashcard array formatted', () => {
     const arr = mapResults(fakeFlashcards);
     expect(arr.length).toBe(2);
@@ -37,5 +22,5 @@ describe('grapql/resolvers/flashcard.ts', () => {
       subcategory: fakeFlashcards[1].subcategory,
       id: id2 
     })));
-  })
+  });
 });
