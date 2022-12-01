@@ -1,14 +1,18 @@
 import Subcategory, { ISubcategory } from '../../models/subcategory';
 
 export const getAllSubcategories = async (): Promise<ISubcategory[]> => {
-  const subcategories = await Subcategory.find();
+  try {
+    const subcategories = await Subcategory.find();
 
-  return subcategories.length
-    ? subcategories.map(({ _id, subcategory }: ISubcategory) => ({
-        id: _id,
-        subcategory,
-      }))
-    : [];
+    return subcategories.length
+      ? subcategories.map(({ _id, subcategory }: ISubcategory) => ({
+          id: _id,
+          subcategory,
+        }))
+      : [];
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const addSubcategory = async ({ subcategory }) => {
@@ -20,7 +24,6 @@ export const addSubcategory = async ({ subcategory }) => {
     await subcategoryObj.save();
     return 'ok';
   } catch (err) {
-    console.error(err);
     throw err;
   }
 };
