@@ -26,7 +26,7 @@ export const addFlashcard = async ({
   answer: string;
   category?: string;
   subcategory?: string;
-}) => {
+}): Promise<string> => {
   try {
     const flashcard = new Flashcard({
       question,
@@ -55,7 +55,7 @@ export const updateFlashcardById = async ({
   answer: string;
   category?: string;
   subcategory?: string;
-}) => {
+}): Promise<string> => {
   try {
     await Flashcard.findOneAndUpdate({ _id: id }, { question, answer, category, subcategory });
 
@@ -66,12 +66,12 @@ export const updateFlashcardById = async ({
   }
 };
 
-export const getFlashcardsByCategory = async (category: string) => {
+export const getFlashcardsByCategory = async (category: string): Promise<IFlashcard[]> => {
   if (!category) {
     return [];
   }
 
-  const flashcards = await Flashcard.find({ category }).exec();
+  const flashcards = await Flashcard.find({ category });
 
   return mapResults(flashcards);
 }
