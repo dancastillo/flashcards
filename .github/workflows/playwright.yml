@@ -4,6 +4,11 @@ on:
     branches: [main, master, develop]
   pull_request:
     branches: [main, master, develop]
+
+defaults:
+  run:
+    working-directory: ./app
+
 jobs:
   test:
     timeout-minutes: 60
@@ -23,5 +28,5 @@ jobs:
         if: always()
         with:
           name: playwright-report
-          path: playwright-report/
+          path: app/playwright-report/
           retention-days: 30
