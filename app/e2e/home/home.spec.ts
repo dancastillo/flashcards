@@ -49,7 +49,8 @@ test('Home page loads two flashcards', async ({ page }) => {
         }
       })
     })
-  })
+  });
+  await new Promise(f => setTimeout(f, 1000));
   await page.getByText('question one').click();
   await page.getByText('answer one').click();
   await page.getByText('question two').click();
