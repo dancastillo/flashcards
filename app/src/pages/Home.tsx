@@ -11,10 +11,9 @@ function Home() {
   if (fetching) return <p>Loading....</p>;
   if (error) {
     return (
-      <p>
-        Oh no...
-        {error.message}
-      </p>
+      <div className="container">
+        <FlashcardList flashcards={[]} />
+      </div>
     );
   }
 
