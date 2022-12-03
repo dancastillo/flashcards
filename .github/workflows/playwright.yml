@@ -20,6 +20,8 @@ jobs:
           node-version: 18
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      - name: Start app
+        run: yarn start
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
