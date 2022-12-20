@@ -33,12 +33,12 @@
   "type": "module",
   "dependencies": {
     "@fastify/cors": "^8.1.0",
-    "fastify": "^4.9.2",
+    "fastify": "^4.10.2",
     "fastify-plugin": "^4.3.0",
     "graphql": "^16.6.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
-    "mercurius": "^10.1.0",
+    "mercurius": "^11.4.0",
     "mercurius-codegen": "workspace:4.0.1",
     "mongoose": "^6.6.5"
   },
@@ -73,5 +73,8 @@
     "src/**/*.{ts,tsx,css,html,js,jsx}": [
       "yarn lint"
     ]
+  },
+  "resolutions": {
+    "@fastify/websocket": "7.1.1"
   }
 }

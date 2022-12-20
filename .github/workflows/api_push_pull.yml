@@ -41,7 +41,6 @@ jobs:
 
       - name: API Run tests
         run: yarn test
-        continue-on-error: true
 
       - name: API Build node
         run: yarn build
