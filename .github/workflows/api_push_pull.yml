@@ -14,14 +14,17 @@ defaults:
 
 jobs:
   tests:
-    uses: dancastillo/workflows/.github/workflows/tests-ci.yml
+    uses: dancastillo/workflows/.github/workflows/tests-ci.yml@v1
+
+  jest_coverage:
+    uses: dancastillo/workflows/.github/workflows/jest-coverage-ci.yml@v1
 
   pull_request:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [18.x, 19.x]
 
     steps:
       - name: Check out code
