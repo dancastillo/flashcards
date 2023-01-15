@@ -8,7 +8,7 @@ export default function FlashcardList({ flashcards }: { flashcards: IFlashcard[]
   useEffect(() => {
     flashcards.sort(() => 0.5 - Math.random());
     setFlashcardsArr(flashcards);
-  }, []);
+  }, [flashcards]);
 
   return (
     <>
